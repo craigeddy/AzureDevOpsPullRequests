@@ -9,13 +9,14 @@ from a Team Projects's repositories. It retrieves the pull request details and p
 2. In secrets.json, add the following
 ```json
 {
-  "PersonalAccessToken": "<the generated PAT>"
+  "PersonalAccessToken": "<the generated PAT>",
+  "TeamProjectName": "<your team project name>"
 }
 ```
 3. In appSettings.json, add the following
 ```json
 {
-  "AzureDevOpsServer": "<your Azure DevOps server URL>",
+  "AzureDevOpsServer": "<your Azure DevOps server URL>"
 }
 ```
 
