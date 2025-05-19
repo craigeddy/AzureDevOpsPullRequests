@@ -35,7 +35,8 @@ class Program
         var witClient = connection.GetClient<WorkItemTrackingHttpClient>();
         
         var gitHttpClient = connection.GetClient<Microsoft.TeamFoundation.SourceControl.WebApi.GitHttpClient>();
-        var gitRepos = gitHttpClient.GetRepositoriesAsync("FACTS%20Info").Result;
+        var teamProjectName = config["TeamProjectName"];
+        var gitRepos = gitHttpClient.GetRepositoriesAsync(teamProjectName).Result;
         var parser = new Parser();
         ;
         // Get counts of pull requests for each repo
@@ -71,6 +72,6 @@ class Program
         }
         
         // Get 2 levels of query hierarchy items
-        List<QueryHierarchyItem> queryHierarchyItems = witClient.GetQueriesAsync("FACTS%20Info", depth: 2).Result;
+        List<QueryHierarchyItem> queryHierarchyItems = witClient.GetQueriesAsync(teamProjectName, depth: 2).Result;
     }
 }
