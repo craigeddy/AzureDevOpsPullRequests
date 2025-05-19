@@ -5,6 +5,23 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <UserSecretsId>966b6a1b-89fd-4a30-9f45-ace489bf3012</UserSecretsId>
     </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Chronic.Core" Version="0.4.0" />
+      <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.5" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.5" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.5" />
+      <PackageReference Include="Microsoft.TeamFoundationServer.Client" Version="19.225.1" />
+      <PackageReference Include="Microsoft.VisualStudio.Services.Client" Version="19.225.1" />
+      <PackageReference Include="Microsoft.VisualStudio.Services.InteractiveClient" Version="19.225.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="appSettings.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
 
 </Project>
