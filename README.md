@@ -1,6 +1,6 @@
 # Azure DevOps Pull Request Reader
 
-This is a simple Python script that uses the Azure DevOps REST API to read last month's pull requests 
+This is a simple .NET 8 console application that uses the Azure DevOps REST API to read last month's pull requests 
 from a Team Projects's repositories. It retrieves the pull request details and prints them in a readable format.
 
 ## Prerequisites
