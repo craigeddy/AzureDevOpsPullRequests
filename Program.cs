@@ -38,12 +38,13 @@ class Program
         var teamProjectName = config["TeamProjectName"];
         var gitRepos = gitHttpClient.GetRepositoriesAsync(teamProjectName).Result;
         var parser = new Parser();
-        ;
+        
         // Get counts of pull requests for each repo
         var endDate = parser.Parse("last month").End;
         var startDate = parser.Parse("last month").Start;
         Console.WriteLine($"Completed Pull Requests from {startDate:d} to {endDate:d}");
         Console.WriteLine();
+        
         foreach (var repo in gitRepos)
         {
             var pullRequests = gitHttpClient.GetPullRequestsAsync(repo.Id, new GitPullRequestSearchCriteria()
@@ -54,21 +55,21 @@ class Program
                 MaxTime = endDate,
             }).Result;
 
-            if (pullRequests.Any())
+            // SHORT CIRCUIT IF NO PULL REQUESTS
+            if (pullRequests.Count == 0) continue;
+            
+            Console.WriteLine($"Project: {repo.Name} - Completed Pull Requests: {pullRequests.Count}");
+            foreach (var pullRequest in pullRequests.OrderBy(pr => pr.CreationDate))
             {
-                Console.WriteLine($"Project: {repo.Name} - Completed Pull Requests: {pullRequests.Count}");
-                foreach (var pullRequest in pullRequests.OrderBy(pr => pr.CreationDate))
+                var msg = $"  PR: {pullRequest.PullRequestId} - {pullRequest.Title} by {pullRequest.CreatedBy.DisplayName} - {pullRequest.CreationDate:d}";
+                if(args.Contains("--includeUrl"))
                 {
-                    var msg = $"  PR: {pullRequest.PullRequestId} - {pullRequest.Title}";
-                    if(args.Contains("--includeUrl"))
-                    {
-                        msg += $" - {repo.WebUrl}/pullrequest/{pullRequest.PullRequestId}";
-                    }
-                    
-                    Console.WriteLine(msg);
+                    msg += $" - {repo.WebUrl}/pullrequest/{pullRequest.PullRequestId}";
                 }
-                Console.WriteLine();
+                    
+                Console.WriteLine(msg);
             }
+            Console.WriteLine();
         }
         
         // Get 2 levels of query hierarchy items
